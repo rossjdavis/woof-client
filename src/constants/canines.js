@@ -1,0 +1,3 @@
+export const LOAD_ALL_DOGS = 'LOAD_ALL_DOGS'
+export const CREATE_CANINE = 'CREATE_CANINE'
+export const REMOVE_CANINE = 'REMOVE_CANINE'
