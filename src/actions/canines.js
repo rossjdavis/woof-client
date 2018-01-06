@@ -4,18 +4,14 @@ import {
   LOAD_ALL_DOGS
 } from '../constants/canines'
 
-export const bringToState = canines => ({
+export const showDogs = canines => ({
   type: LOAD_ALL_DOGS,
   payload: canines
 })
 
-export const createCanine = data => ({
+export const createCanine = payload => ({
   type: CREATE_CANINE,
-  payload: {
-    name,
-    symbol,
-    price
-  }
+  payload: {}
 })
 
 export const removeCanine = id => ({
