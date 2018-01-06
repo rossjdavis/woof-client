@@ -5,21 +5,14 @@ import App from './App'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
-import thunkMiddleware from 'redux-thunk'
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
 import canineReducer from './reducers/canines'
 import { init as listen, emit } from './actions/websockets'
-import { List, Map } from 'immutable'
-
-const initialState = new Map().set('canines', new List())
 
 function startup() {
-  const middleware = [thunkMiddleware.withExtraArgument({ emit })]
-  const store = createStore(
-    canineReducer,
-    initialState,
-    applyMiddleware(...middleware)
-  )
+  const middleware = [thunk.withExtraArgument({ emit })]
+  const store = createStore(canineReducer, applyMiddleware(...middleware))
 
   console.log(store.getState())
 

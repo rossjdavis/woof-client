@@ -7,7 +7,6 @@ import {
 const DEFAULT_STATE = {
   canines: []
 }
-
 export default function canineReducer(state = DEFAULT_STATE, action) {
   switch (action.type) {
     case LOAD_ALL_DOGS:
