@@ -1,34 +1,45 @@
 import React, { Component } from 'react'
-// import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import io from 'socket.io-client'
-//
-import { showDogs } from './actions/canines'
 
-// import * as actions from './actions'
+import { connect } from 'react-redux'
+import SocketIoClient from 'socket.io-client'
+//
+// import { newSocket } from './actions/websockets'
+import { showDogsList } from './actions/canines'
+import { bindActionCreators } from 'redux'
+import * as actions from './actions/canines'
 
 import Dashboard from './containers/Dashboard'
+
+let socket
 
 class App extends Component {
   constructor(props) {
     super(props)
 
-    // const endpoint = 'http://localhost:3001'
-    // const socket = io.connect(endpoint)
+    // const { dispatch } = this.props
+    // socket = SocketIoClient('http://localhost:3001')
     //
     // socket.on('LOAD_ALL_DOGS', payload => {
-    //   dispatch(loadCanines(payload))
+    //   dispatch(showDogsList(payload))
     // })
   }
 
   componentWillMount() {
-    const { canines, onIndex } = this.props
-    const socket = io.connect('http://localhost:3001')
-
-    socket.on('LOAD_ALL_DOGS', payload => {
-      onIndex(payload)
-    })
+    console.log(actions)
   }
+
+  // componentWillMount() {
+  //   const { initSocket } = this.props
+  //   initSocket()
+  // }
+  //
+  // componentDidMount() {
+  //   const { socket, onIndex } = this.props
+  //
+  //   socket.on('LOAD_ALL_DOGS', payload => {
+  //     onIndex(payload)
+  //   })
+  // }
 
   render() {
     return <Dashboard />
@@ -37,12 +48,23 @@ class App extends Component {
 
 const mapStateToProps = state => ({
   canines: state.canines
+  // socket: state.socket
 })
 
-const mapDispatchToProps = dispatch => ({
-  onIndex: canines => {
-    dispatch(showDogs(canines))
+function mapDispatchToProps(dispatch) {
+  return {
+    dispatch: dispatch,
+    actions: bindActionCreators(actions, dispatch)
   }
-})
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+// const mapDispatchToProps = dispatch => ({
+//   // initSocket: () => {
+//   //   dispatch(newSocket())
+//   // },
+//   onIndex: canines => {
+//     dispatch(showDogsList(canines))
+//   }
+// })
+
+export default connect(mapStateToProps)(App)

@@ -7,3 +7,5 @@ const messages = [LOAD_ALL_DOGS].reduce((d, i) => {
 }, {})
 
 export { endpoint, messages }
+//
+export const INITIALIZE = 'INITIALIZE'

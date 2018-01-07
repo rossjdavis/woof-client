@@ -5,37 +5,39 @@ import App from './App'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
+// import { reducers } from './reducers/index'
+
 import canineReducer from './reducers/canines'
-// import { init as listen, emit } from './actions/websockets'
 
-const store = createStore(canineReducer, applyMiddleware(thunk))
+import { init as listen, emit } from './actions/websockets'
 
-// function startup() {
-//   const middleware = [thunk.withExtraArgument({ emit })]
-//   const store = createStore(canineReducer, applyMiddleware(...middleware))
+// const store = createStore(canineReducer, applyMiddleware(thunk))
 //
-//   console.log('initializing')
-//
-//   store.subscribe(() => {
-//     console.log(store.getState())
-//   })
-//
-//   listen(store)
-//
-//   console.log(store)
-//   return store
-// }
+function startup() {
+  const middleware = [thunk.withExtraArgument({ emit })]
+  const store = createStore(canineReducer, applyMiddleware(...middleware))
 
-console.log(store.getState())
+  console.log('initializing')
 
-store.subscribe(() => {
-  console.log(store.getState())
-})
+  store.subscribe(() => {
+    console.log(store.getState())
+  })
+
+  listen(store)
+
+  return store
+}
+
+// console.log(store.getState())
+//
+// store.subscribe(() => {
+//   console.log(store.getState())
+// })
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={startup()}>
     {/* <Router> */}
     <App />
     {/* </Router> */}
