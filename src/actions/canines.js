@@ -12,7 +12,8 @@ export function showDogsList() {
 
 export function createCanine(payload) {
   return (dispatch, getState, { emit }) => {
-    emit(CREATE_CANINE, { payload })
+    console.log(payload)
+    emit(CREATE_CANINE, payload)
   }
 }
 
