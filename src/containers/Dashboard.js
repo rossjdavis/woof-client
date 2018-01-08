@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { removeCanine } from '../actions/canines'
+import { setActive } from '../actions/canines'
 import CanineForm from '../components/CanineForm'
 
 const dashboard = {
@@ -19,13 +20,22 @@ const styleDogs = {
   display: 'flex'
 }
 
-const Canines = ({ canines, onRemove }) => {
+const Canines = ({ canines, onRemove, onActive, history }) => {
   let list = !canines ? (
     <p>Loading...</p>
   ) : (
     canines.map((d, i) => (
       <div key={i} style={styleDogs}>
-        <Link to={`/canines/${d._id}`}>{d.name}</Link>
+        <h3>{d.name}</h3>
+        <button
+          onClick={e => {
+            e.preventDefault()
+            onActive(d)
+            history.push('/view-canine')
+          }}
+        >
+          Profile
+        </button>
         <button
           onClick={e => {
             e.preventDefault()
@@ -50,7 +60,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onRemove: id => dispatch(removeCanine(id))
+  onRemove: id => dispatch(removeCanine(id)),
+  onActive: canine => dispatch(setActive(canine))
 })
 
 const Dashboard = connect(mapStateToProps, mapDispatchToProps)(Canines)

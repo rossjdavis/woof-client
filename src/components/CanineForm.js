@@ -1,16 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { createCanine } from '../actions/canines'
-import { assignValues } from '../actions/forms'
 import DateDropdown from './DateDropdown'
 
-const Canine = ({ history, onAssign, onCreate, date, canine }) => {
+const Canine = ({ history, onCreate, date }) => {
+  let born = `${date.month}-${date.day}-${date.year}`
   return (
     <form
       onSubmit={e => {
         e.preventDefault()
-        onAssign(e.target[0].value, date)
-        onCreate(canine)
+        onCreate(e.target[0].value, born)
       }}
     >
       <p>
@@ -27,13 +26,11 @@ const Canine = ({ history, onAssign, onCreate, date, canine }) => {
 }
 
 const mapStateToProps = state => ({
-  date: state.forms.date,
-  canine: state.forms.canine
+  date: state.forms.date
 })
 
 const mapDispatchToProps = dispatch => ({
-  onAssign: (name, date) => dispatch(assignValues(name, date)),
-  onCreate: canine => dispatch(createCanine(canine))
+  onCreate: (name, date) => dispatch(createCanine(name, date))
 })
 
 const CanineForm = connect(mapStateToProps, mapDispatchToProps)(Canine)

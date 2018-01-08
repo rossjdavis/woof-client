@@ -19,8 +19,3 @@ export const selectYear = year => ({
   type: SELECT_YEAR,
   payload: year
 })
-
-export const assignValues = (name, date) => ({
-  type: ASSIGN_VALUES,
-  payload: { name: name, date: date }
-})

@@ -1,11 +1,6 @@
 import moment from 'moment'
 
-import {
-  SELECT_YEAR,
-  SELECT_MONTH,
-  SELECT_DAY,
-  ASSIGN_VALUES
-} from '../constants/forms'
+import { SELECT_YEAR, SELECT_MONTH, SELECT_DAY } from '../constants/forms'
 
 const DEFAULT_STATE = {
   date: {
@@ -49,13 +44,6 @@ export const forms = (state = DEFAULT_STATE, action) => {
           day: state.date.month,
           year: action.payload,
           base: state.date.base
-        }
-      }
-    case ASSIGN_VALUES:
-      return {
-        ...state,
-        canine: {
-          name: action.payload.name
         }
       }
 
