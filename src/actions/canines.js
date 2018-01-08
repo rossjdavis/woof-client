@@ -19,7 +19,7 @@ export function createCanine(payload) {
 export function removeCanine(payload) {
   return (dispatch, getState, { emit }) => {
     console.log(payload)
-    emit(REMOVE_CANINE, { payload })
+    emit(REMOVE_CANINE, payload)
     dispatch({ type: REMOVE_CANINE, payload: payload })
   }
 }
