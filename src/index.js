@@ -5,16 +5,19 @@ import App from './App'
 
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 
 import canineReducer from './reducers/canines'
+import formReducer from './reducers/forms'
 
 import { init as listen, emit } from './actions/websockets'
 
+const reducer = combineReducers({ canineReducer, formReducer })
+
 function startup() {
   const middleware = [thunk.withExtraArgument({ emit })]
-  const store = createStore(canineReducer, applyMiddleware(...middleware))
+  const store = createStore(reducer, applyMiddleware(...middleware))
 
   console.log('initializing')
 
