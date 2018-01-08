@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 
 import { removeCanine } from '../actions/canines'
 
+import CanineForm from '../components/CanineForm'
+
 const Canines = ({ canines, onRemove }) => {
   let list = !canines ? (
     <p>Loading...</p>
@@ -22,7 +24,11 @@ const Canines = ({ canines, onRemove }) => {
       </div>
     ))
   )
-  return <div className="dogs-list">{list}</div>
+  return (
+    <div className="dogs-list">
+      {list} <CanineForm />
+    </div>
+  )
 }
 
 const mapStateToProps = state => ({
