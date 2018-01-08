@@ -1,46 +1,49 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
-import { selectYear, selectMonth, selectDay } from '../actions/forms'
+import * as actions from '../actions/forms'
+import { bindActionCreators } from 'redux'
 
-const DateDropdown = ({ selectYear, date }) => {
-  let base = moment().year() - 14
+const DateDropdown = ({ actions, month, day, year }) => {
+  let days = new Date(year, month, 0).getDate()
 
-  let days = new Date(base, moment().month() + 1, 0).getDate()
-
-  // let days = [...Array(date).keys()].map((d, i) => (
-  //   <option value={d + 1} key={i}>
-  //     {d + 1}
-  //   </option>
-  // ))
-
-  // console.log(moment(`${base}-01`, 'YYYY-MM'))
-  console.log(date)
   return (
     <div>
-      <select name="month" defaultValue="month">
+      <select
+        name="month"
+        defaultValue="month"
+        onChange={e => {
+          actions.selectMonth(e.target.value)
+        }}
+      >
         <option value="month" disabled hidden>
           Month
         </option>
         {optionsList(12)}
       </select>
-      <select name="day" defaultValue="day">
+      <select
+        name="day"
+        defaultValue="day"
+        onChange={e => {
+          actions.selectDay(e.target.value)
+        }}
+      >
         <option value="day" disabled hidden>
           Day
         </option>
-        {optionsList(date)}
+        {optionsList(days)}
       </select>
       <select
         name="year"
         defaultValue="year"
         onChange={e => {
-          selectYear(e.target.value)
+          actions.selectYear(e.target.value)
         }}
       >
         <option value="year" disabled hidden>
           Year
         </option>
-        {optionsList(15, base)}
+        {optionsList(15, moment().year() - 14)}
       </select>
     </div>
   )
@@ -54,11 +57,14 @@ const optionsList = (range, base = 1) =>
   ))
 
 const mapStateToProps = state => ({
-  date: state.date
+  month: state.forms.month,
+  day: state.forms.day,
+  year: state.forms.year
 })
 
 const mapDispatchToProps = dispatch => ({
-  selectYear: year => dispatch(selectYear(year))
+  dispatch: dispatch,
+  actions: bindActionCreators(actions, dispatch)
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DateDropdown)

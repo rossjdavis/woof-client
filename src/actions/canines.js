@@ -9,14 +9,14 @@ export function showDogsList() {
     emit(LOAD_ALL_DOGS)
   }
 }
-
-export function createCanine(payload) {
-  return (dispatch, getState, { emit }) => {
-    emit(CREATE_CANINE, { payload })
-    dispatch({ type: CREATE_CANINE, canines: payload })
-  }
-}
-
+//
+// export function createCanine(payload) {
+//   return (dispatch, getState, { emit }) => {
+//     emit(CREATE_CANINE, { payload })
+//     dispatch({ type: CREATE_CANINE, canines: payload })
+//   }
+// }
+//
 export function removeCanine(payload) {
   return (dispatch, getState, { emit }) => {
     emit(REMOVE_CANINE, { payload })

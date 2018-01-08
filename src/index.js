@@ -8,12 +8,12 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 
-import canineReducer from './reducers/canines'
-import formReducer from './reducers/forms'
+import { canines } from './reducers/canines'
+import { forms } from './reducers/forms'
 
 import { init as listen, emit } from './actions/websockets'
 
-const reducer = combineReducers({ canineReducer, formReducer })
+const reducer = combineReducers({ canines, forms })
 
 function startup() {
   const middleware = [thunk.withExtraArgument({ emit })]
