@@ -15,37 +15,53 @@ const Canine = ({ history }) => {
 
   let base = moment().year() - 14
 
-  let mm = [...Array(12).keys()].map((d, i) => (
-    <option value={d + 1} key={i}>
-      {d + 1}
-    </option>
-  ))
-
-  let yy = [...Array(15).keys()].map((d, i) => (
-    <option value={d + base} key={i}>
-      {d + base}
-    </option>
-  ))
-  console.log(base)
-  console.log(yy)
-
-  console.log(mm)
-
-  console.log(days)
-
   return (
     <form>
       <p>
         <input type="text" name="name" placeholder="Name" />
       </p>
       <p>
-        <select name="mm">{mm}</select>
-        <select name="dd">{days}</select>
-        <select name="yy">{yy}</select>
+        <select name="mm" defaultValue="month" onChange={selectMonth}>
+          <option value="month" disabled hidden>
+            Month
+          </option>
+          {optionsList(12)}
+        </select>
+        <select name="dd" defaultValue="day" onChange={selectDay}>
+          <option value="day" disabled hidden>
+            Day
+          </option>
+          {optionsList(date)}
+        </select>
+        <select name="yy" defaultValue="year" onChange={selectYear}>
+          <option value="year" disabled hidden>
+            Year
+          </option>
+          {optionsList(15, base)}
+        </select>
       </p>
     </form>
   )
 }
+
+const selectYear = e => {
+  console.log(e.target.value)
+}
+
+const selectMonth = e => {
+  console.log(e.target.value)
+}
+
+const selectDay = e => {
+  console.log(e.target.value)
+}
+
+const optionsList = (range, base = 1) =>
+  [...Array(range).keys()].map(d => (
+    <option value={d + base} key={d}>
+      {d + base}
+    </option>
+  ))
 
 const CanineForm = connect()(Canine)
 

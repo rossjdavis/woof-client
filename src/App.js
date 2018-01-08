@@ -16,6 +16,7 @@ class App extends Component {
 
   componentWillMount() {
     const { actions } = this.props
+
     actions.showDogsList()
   }
 
@@ -33,11 +34,9 @@ const mapStateToProps = state => ({
   canines: state.canines
 })
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch: dispatch,
-    actions: bindActionCreators(actions, dispatch)
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  dispatch: dispatch,
+  actions: bindActionCreators(actions, dispatch)
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App))
