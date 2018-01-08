@@ -32,7 +32,7 @@ const Canines = ({ canines, onRemove }) => {
 }
 
 const mapStateToProps = state => ({
-  canines: state.canines.canines
+  canines: state.canines.index
 })
 
 const mapDispatchToProps = dispatch => ({

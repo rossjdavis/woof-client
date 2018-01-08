@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
-
 import { withRouter, Switch, Route, Redirect } from 'react-router-dom'
-
 import { connect } from 'react-redux'
-
 import { bindActionCreators } from 'redux'
 import * as actions from './actions/canines'
-
 import Dashboard from './containers/Dashboard'
 
 class App extends Component {

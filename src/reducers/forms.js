@@ -3,9 +3,11 @@ import moment from 'moment'
 import { SELECT_YEAR, SELECT_MONTH, SELECT_DAY } from '../constants/forms'
 
 const DEFAULT_STATE = {
-  month: moment().month() + 1,
-  day: moment().date(),
-  year: moment().year()
+  date: {
+    month: moment().month() + 1,
+    day: moment().date(),
+    year: moment().year()
+  }
 }
 
 export const forms = (state = DEFAULT_STATE, action) => {
@@ -13,19 +15,31 @@ export const forms = (state = DEFAULT_STATE, action) => {
     case SELECT_MONTH:
       return {
         ...state,
-        month: action.payload
+        date: {
+          month: action.payload,
+          day: state.date.day,
+          year: state.date.year
+        }
       }
 
     case SELECT_DAY:
       return {
         ...state,
-        day: action.payload
+        date: {
+          month: state.date.month,
+          day: action.payload,
+          year: state.date.year
+        }
       }
 
     case SELECT_YEAR:
       return {
         ...state,
-        year: action.payload
+        date: {
+          month: state.date.month,
+          day: state.date.month,
+          year: action.payload
+        }
       }
 
     default:

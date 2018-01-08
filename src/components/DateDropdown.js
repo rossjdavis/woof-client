@@ -4,8 +4,8 @@ import moment from 'moment'
 import * as actions from '../actions/forms'
 import { bindActionCreators } from 'redux'
 
-const DateDropdown = ({ actions, month, day, year }) => {
-  let days = new Date(year, month, 0).getDate()
+const DateDropdown = ({ actions, date }) => {
+  let days = new Date(date.year, date.month, 0).getDate()
 
   return (
     <div>
@@ -57,9 +57,11 @@ const optionsList = (range, base = 1) =>
   ))
 
 const mapStateToProps = state => ({
-  month: state.forms.month,
-  day: state.forms.day,
-  year: state.forms.year
+  date: {
+    month: state.forms.date.month,
+    day: state.forms.date.day,
+    year: state.forms.date.year
+  }
 })
 
 const mapDispatchToProps = dispatch => ({

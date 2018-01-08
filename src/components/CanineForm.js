@@ -1,74 +1,37 @@
 import React from 'react'
 import { connect } from 'react-redux'
-// import { createCanine } from './actions/canines'
-import moment from 'moment'
+import { createCanine } from '../actions/canines'
 import DateDropdown from './DateDropdown'
 
-const Canine = ({ history }) => {
-  // let base = moment().year() - 14
-  //
-  // let date = new Date(base, moment().month() + 1, 0).getDate()
-  //
-  // let days = [...Array(date).keys()].map((d, i) => (
-  //   <option value={d + 1} key={i}>
-  //     {d + 1}
-  //   </option>
-  // ))
-
-  // console.log(moment(`${base}-01`, 'YYYY-MM'))
-
+const Canine = ({ history, onCreate }) => {
   return (
-    <form onSubmit={e => e.preventDefault()}>
+    <form
+      onSubmit={e => {
+        e.preventDefault()
+        onCreate({ name: e.target[0].value })
+      }}
+    >
       <p>
-        <input type="text" name="name" placeholder="Name" />
+        Name:
+        <input type="text" name="name" />
       </p>
-      <DateDropdown />
-      {/* <p>
-        <select name="mm" defaultValue="month" onChange={selectMonth}>
-          <option value="month" disabled hidden>
-            Month
-          </option>
-          {optionsList(12)}
-        </select>
-        <select name="dd" defaultValue="day" onChange={selectDay}>
-          <option value="day" disabled hidden>
-            Day
-          </option>
-          {optionsList(date)}
-        </select>
-        <select name="yy" defaultValue="year" onChange={selectYear}>
-          <option value="year" disabled hidden>
-            Year
-          </option>
-          {optionsList(15, base)}
-        </select>
-      </p>
-      <p>
-        <input type="submit" value="+ Canine" />
-      </p> */}
+      <div>
+        Birthday:
+        <DateDropdown />
+      </div>
+      <input type="submit" value="+ Canine" />
     </form>
   )
 }
 
-const selectYear = e => {
-  console.log(e.target.value)
-}
+const mapStateToProps = state => ({
+  state: state.newCanine
+})
 
-const selectMonth = e => {
-  console.log(e.target.value)
-}
+const mapDispatchToProps = dispatch => ({
+  onCreate: newCanine => dispatch(createCanine({ newCanine }))
+})
 
-const selectDay = e => {
-  console.log(e.target.value)
-}
-
-// const optionsList = (range, base = 1) =>
-//   [...Array(range).keys()].map(d => (
-//     <option value={d + base} key={d}>
-//       {d + base}
-//     </option>
-//   ))
-
-const CanineForm = connect()(Canine)
+const CanineForm = connect(mapStateToProps, mapDispatchToProps)(Canine)
 
 export default CanineForm
