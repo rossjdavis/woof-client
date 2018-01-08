@@ -1,54 +1,36 @@
 import React, { Component } from 'react'
 
+import { withRouter, Switch, Route, Redirect } from 'react-router-dom'
+
 import { connect } from 'react-redux'
-import SocketIoClient from 'socket.io-client'
-//
-// import { newSocket } from './actions/websockets'
-import { showDogsList } from './actions/canines'
+
 import { bindActionCreators } from 'redux'
 import * as actions from './actions/canines'
 
 import Dashboard from './containers/Dashboard'
 
-let socket
-
 class App extends Component {
   constructor(props) {
     super(props)
-
-    // const { dispatch } = this.props
-    // socket = SocketIoClient('http://localhost:3001')
-    //
-    // socket.on('LOAD_ALL_DOGS', payload => {
-    //   dispatch(showDogsList(payload))
-    // })
   }
 
   componentWillMount() {
-    console.log(actions)
+    const { actions } = this.props
+    actions.showDogsList()
   }
 
-  // componentWillMount() {
-  //   const { initSocket } = this.props
-  //   initSocket()
-  // }
-  //
-  // componentDidMount() {
-  //   const { socket, onIndex } = this.props
-  //
-  //   socket.on('LOAD_ALL_DOGS', payload => {
-  //     onIndex(payload)
-  //   })
-  // }
-
   render() {
-    return <Dashboard />
+    return (
+      <Switch>
+        <Route exact path="/canines" render={() => <Dashboard />} />
+        <Route path="*" render={() => <Redirect to="/canines" />} />
+      </Switch>
+    )
   }
 }
 
 const mapStateToProps = state => ({
   canines: state.canines
-  // socket: state.socket
 })
 
 function mapDispatchToProps(dispatch) {
@@ -58,13 +40,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-// const mapDispatchToProps = dispatch => ({
-//   // initSocket: () => {
-//   //   dispatch(newSocket())
-//   // },
-//   onIndex: canines => {
-//     dispatch(showDogsList(canines))
-//   }
-// })
-
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App))

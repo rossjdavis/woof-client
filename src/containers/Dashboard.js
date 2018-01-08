@@ -1,38 +1,37 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-// import { showDogsList } from '../actions/canines'
+import { Link } from 'react-router-dom'
 
-import * as actions from '../actions'
+import { removeCanine } from '../actions/canines'
 
-const Canines = ({ canines }) => {
-  // socket.on('LOAD_ALL_DOGS', payload => {
-  //   onIndex(payload)
-  // })
+const Canines = ({ canines, onRemove }) => {
   let list = !canines ? (
     <p>Loading...</p>
   ) : (
-    canines.map((d, i) => <p key={i}>{d.name}</p>)
+    canines.map((d, i) => (
+      <div key={i}>
+        <Link to={`/canines/${d._id}`}>{d.name}</Link>
+        <button
+          onClick={e => {
+            e.preventDefault()
+            onRemove(d._id)
+          }}
+        >
+          X
+        </button>
+      </div>
+    ))
   )
-  return <div>{list}</div>
+  return <div className="dogs-list">{list}</div>
 }
 
 const mapStateToProps = state => ({
   canines: state.canines
 })
 
-// const mapDispatchToProps = dispatch => ({
-//   onIndex: canines => {
-//     dispatch(showDogsList(canines))
-//   }
-// })
-
-function mapDispatchToProps(dispatch) {
-  // return {
-  //   dispatch: dispatch,
-  //   actions: bindActionCreators(actions, dispatch)
-  // }
-}
+const mapDispatchToProps = dispatch => ({
+  onRemove: id => dispatch(removeCanine(id))
+})
 
 const Dashboard = connect(mapStateToProps, mapDispatchToProps)(Canines)
 
