@@ -1,13 +1,20 @@
 import moment from 'moment'
 
-import { SELECT_YEAR, SELECT_MONTH, SELECT_DAY } from '../constants/forms'
+import {
+  SELECT_YEAR,
+  SELECT_MONTH,
+  SELECT_DAY,
+  ASSIGN_VALUES
+} from '../constants/forms'
 
 const DEFAULT_STATE = {
   date: {
     month: moment().month() + 1,
     day: moment().date(),
-    year: moment().year()
-  }
+    year: moment().year(),
+    base: moment().year() - 14
+  },
+  canine: null
 }
 
 export const forms = (state = DEFAULT_STATE, action) => {
@@ -18,7 +25,8 @@ export const forms = (state = DEFAULT_STATE, action) => {
         date: {
           month: action.payload,
           day: state.date.day,
-          year: state.date.year
+          year: state.date.year,
+          base: state.date.base
         }
       }
 
@@ -28,7 +36,8 @@ export const forms = (state = DEFAULT_STATE, action) => {
         date: {
           month: state.date.month,
           day: action.payload,
-          year: state.date.year
+          year: state.date.year,
+          base: state.date.base
         }
       }
 
@@ -38,7 +47,15 @@ export const forms = (state = DEFAULT_STATE, action) => {
         date: {
           month: state.date.month,
           day: state.date.month,
-          year: action.payload
+          year: action.payload,
+          base: state.date.base
+        }
+      }
+    case ASSIGN_VALUES:
+      return {
+        ...state,
+        canine: {
+          name: action.payload.name
         }
       }
 

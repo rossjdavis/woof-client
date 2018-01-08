@@ -12,7 +12,6 @@ class App extends Component {
 
   componentWillMount() {
     const { actions } = this.props
-
     actions.showDogsList()
   }
 

@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import moment from 'moment'
 import * as actions from '../actions/forms'
 import { bindActionCreators } from 'redux'
 
@@ -43,7 +42,7 @@ const DateDropdown = ({ actions, date }) => {
         <option value="year" disabled hidden>
           Year
         </option>
-        {optionsList(15, moment().year() - 14)}
+        {optionsList(15, date.base)}
       </select>
     </div>
   )
@@ -60,7 +59,8 @@ const mapStateToProps = state => ({
   date: {
     month: state.forms.date.month,
     day: state.forms.date.day,
-    year: state.forms.date.year
+    year: state.forms.date.year,
+    base: state.forms.date.base
   }
 })
 

@@ -1,17 +1,30 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-
 import { removeCanine } from '../actions/canines'
-
 import CanineForm from '../components/CanineForm'
+
+const dashboard = {
+  display: 'flex',
+  flexDirection: 'column'
+}
+
+const styleList = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-between'
+}
+
+const styleDogs = {
+  display: 'flex'
+}
 
 const Canines = ({ canines, onRemove }) => {
   let list = !canines ? (
     <p>Loading...</p>
   ) : (
     canines.map((d, i) => (
-      <div key={i}>
+      <div key={i} style={styleDogs}>
         <Link to={`/canines/${d._id}`}>{d.name}</Link>
         <button
           onClick={e => {
@@ -25,8 +38,9 @@ const Canines = ({ canines, onRemove }) => {
     ))
   )
   return (
-    <div className="dogs-list">
-      {list} <CanineForm />
+    <div className="dogs-list" style={dashboard}>
+      <div style={styleList}>{list} </div>
+      <CanineForm />
     </div>
   )
 }
