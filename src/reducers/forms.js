@@ -8,8 +8,7 @@ const DEFAULT_STATE = {
     day: moment().date(),
     year: moment().year(),
     base: moment().year() - 14
-  },
-  canine: null
+  }
 }
 
 export const forms = (state = DEFAULT_STATE, action) => {

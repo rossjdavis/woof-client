@@ -1,4 +1,5 @@
-export const LOAD_ALL_DOGS = 'LOAD_ALL_DOGS'
+export const REFRESH = 'REFRESH'
 export const CREATE_CANINE = 'CREATE_CANINE'
 export const REMOVE_CANINE = 'REMOVE_CANINE'
-export const SET_ACTIVE = 'SET_ACTIVE'
+export const SET_PROFILE_VIEW = 'SET_PROFILE_VIEW'
+export const GET_PROFILE_VIEW = 'GET_PROFILE_VIEW'

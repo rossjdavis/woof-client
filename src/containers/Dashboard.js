@@ -5,19 +5,37 @@ import { removeCanine } from '../actions/canines'
 import { setActive } from '../actions/canines'
 import CanineForm from '../components/CanineForm'
 
-const dashboard = {
+const styleView = {
   display: 'flex',
-  flexDirection: 'column'
+  flexDirection: 'column',
+  width: 750,
+  margin: '0 auto'
 }
 
 const styleList = {
   display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between'
+  flexFlow: 'row wrap',
+  justifyContent: 'center'
 }
 
 const styleDogs = {
-  display: 'flex'
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  backgroundColor: 'lightgrey',
+  borderRadius: 20,
+  margin: 10
+}
+
+const styleName = {
+  padding: 5
+}
+
+const styleImage = {
+  width: 150,
+  height: 150,
+  borderTopLeftRadius: 20,
+  borderTopRightRadius: 20
 }
 
 const Canines = ({ canines, onRemove, onActive, history }) => {
@@ -26,31 +44,32 @@ const Canines = ({ canines, onRemove, onActive, history }) => {
   ) : (
     canines.map((d, i) => (
       <div key={i} style={styleDogs}>
-        <h3>{d.name}</h3>
-        <button
+        <img
+          className="img-responsive"
+          style={styleImage}
+          src={d.image}
           onClick={e => {
             e.preventDefault()
             onActive(d)
             history.push('/view-canine')
           }}
-        >
-          Profile
-        </button>
-        <button
+        />
+        <span style={styleName}>{d.name}</span>
+        {/* <button
           onClick={e => {
             e.preventDefault()
             onRemove(d._id)
           }}
         >
           X
-        </button>
+        </button> */}
       </div>
     ))
   )
   return (
-    <div className="dogs-list" style={dashboard}>
+    <div className="dogs-list" style={styleView}>
       <div style={styleList}>{list} </div>
-      <CanineForm />
+      {/* <CanineForm /> */}
     </div>
   )
 }

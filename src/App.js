@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as actions from './actions/canines'
 import Dashboard from './containers/Dashboard'
-import Canine from './components/Canine'
+import CanineView from './components/CanineView'
 
 class App extends Component {
   constructor(props) {
@@ -13,14 +13,14 @@ class App extends Component {
 
   componentWillMount() {
     const { actions } = this.props
-    actions.showDogsList()
+    actions.getDogs()
   }
 
   render() {
     return (
       <Switch>
         <Route exact path="/" render={props => <Dashboard {...props} />} />
-        <Route exact path="/view-canine" render={() => <Canine />} />
+        <Route exact path="/view-canine" render={() => <CanineView />} />
         <Route path="*" render={() => <Redirect to="/" />} />
       </Switch>
     )

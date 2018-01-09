@@ -1,14 +1,15 @@
 import {
+  REFRESH,
   CREATE_CANINE,
   REMOVE_CANINE,
-  LOAD_ALL_DOGS,
-  SET_ACTIVE
+  SET_PROFILE_VIEW,
+  GET_PROFILE_VIEW
 } from '../constants/canines'
 
-export function showDogsList(canines) {
+export function getDogs(canines) {
   return (dispatch, getState, { emit }) => {
-    emit(LOAD_ALL_DOGS)
-    dispatch({ type: LOAD_ALL_DOGS, payload: canines })
+    emit(REFRESH)
+    dispatch({ type: REFRESH, payload: canines })
   }
 }
 
@@ -27,6 +28,20 @@ export function removeCanine(id) {
 
 export function setActive(canine) {
   return (dispatch, getState) => {
-    dispatch({ type: SET_ACTIVE, payload: canine })
+    sessionStorage.setItem('view', JSON.stringify(canine))
+    dispatch({ type: SET_PROFILE_VIEW, payload: canine })
   }
 }
+
+export function getActive() {
+  return (dispatch, getState) => {
+    let canine = JSON.parse(sessionStorage.getItem('view'))
+    dispatch({ type: GET_PROFILE_VIEW, payload: canine })
+  }
+}
+//
+// export function getAge(canine) {
+//   return (dispatch, getState) => {
+//     let age =
+//   }
+// }

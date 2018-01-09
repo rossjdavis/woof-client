@@ -1,8 +1,9 @@
 import {
-  LOAD_ALL_DOGS,
+  REFRESH,
   CREATE_CANINE,
   REMOVE_CANINE,
-  SET_ACTIVE
+  SET_PROFILE_VIEW,
+  GET_PROFILE_VIEW
 } from '../constants/canines'
 
 const DEFAULT_STATE = {
@@ -11,7 +12,7 @@ const DEFAULT_STATE = {
 }
 export const canines = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case LOAD_ALL_DOGS:
+    case REFRESH:
       return {
         ...state,
         index: action.payload
@@ -28,7 +29,12 @@ export const canines = (state = DEFAULT_STATE, action) => {
           return canine._id !== action.payload
         })
       }
-    case SET_ACTIVE:
+    case SET_PROFILE_VIEW:
+      return {
+        ...state,
+        view: action.payload
+      }
+    case GET_PROFILE_VIEW:
       return {
         ...state,
         view: action.payload

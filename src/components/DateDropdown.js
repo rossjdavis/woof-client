@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions/forms'
 import { bindActionCreators } from 'redux'
+// import moment from 'moment'
 
 const DateDropdown = ({ actions, date }) => {
   let days = new Date(date.year, date.month, 0).getDate()
@@ -18,7 +19,7 @@ const DateDropdown = ({ actions, date }) => {
         <option value="month" disabled hidden>
           Month
         </option>
-        {optionsList(12)}
+        {optionList(12)}
       </select>
       <select
         name="day"
@@ -30,7 +31,7 @@ const DateDropdown = ({ actions, date }) => {
         <option value="day" disabled hidden>
           Day
         </option>
-        {optionsList(days)}
+        {optionList(days)}
       </select>
       <select
         name="year"
@@ -42,18 +43,26 @@ const DateDropdown = ({ actions, date }) => {
         <option value="year" disabled hidden>
           Year
         </option>
-        {optionsList(15, date.base)}
+        {optionList(15, date.base)}
       </select>
     </div>
   )
 }
 
-const optionsList = (range, base = 1) =>
+const optionList = (range, base = 1) =>
   [...Array(range).keys()].map(d => (
     <option value={d + base} key={d}>
       {d + base}
     </option>
   ))
+
+// list should not include days that have not yet passed
+// const reduceList = (list, moment, year) => {
+//   list.reduce((d, i) => {
+//     if (year !== moment().year) {
+//     }
+//   })
+// }
 
 const mapStateToProps = state => ({
   date: {
