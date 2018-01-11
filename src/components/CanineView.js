@@ -53,6 +53,8 @@ class Canine extends Component {
   }
 }
 
+const handleExpand = () => {}
+
 const matchStateToProps = state => ({
   view: state.canines.view
 })

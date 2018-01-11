@@ -1,13 +1,13 @@
-import { SET_SESSION, LOGIN_FAILURE } from '../constants/auths'
+import { LOGIN_SUCCESS, GET_SESSION, LOGIN_FAILURE } from '../constants/auths'
 
 const DEFAULT_STATE = {
   // token: JSON.parse(sessionStorage.getItem('token'))
-  token: 'token'
+  token: null
 }
 
 export const auths = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
-    case SET_SESSION:
+    case LOGIN_SUCCESS:
       return {
         ...state,
         token: action.payload

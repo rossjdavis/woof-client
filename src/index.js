@@ -14,8 +14,6 @@ import { forms } from './reducers/forms'
 
 import { init as listen, emit } from './actions/websockets'
 
-import { setSession } from './actions/auths'
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 const reducer = combineReducers({ auths, canines, forms })
@@ -29,7 +27,11 @@ function startup() {
   store.subscribe(() => {
     console.log(store.getState())
     console.log('session ' + sessionStorage.getItem('token'))
-    setSession(store.getState().auths.token)
+    let token = store.getState().auths.token
+    if (token) {
+      sessionStorage.setItem('token', JSON.stringify(token))
+    }
+    console.log(sessionStorage.getItem('token'))
   })
 
   listen(store)

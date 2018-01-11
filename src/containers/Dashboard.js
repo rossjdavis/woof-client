@@ -6,7 +6,6 @@ import CanineForm from '../components/CanineForm'
 import Login from '../components/Login'
 
 import { GridList, GridTile } from 'material-ui/GridList'
-import { Paper } from 'material-ui/Paper'
 
 const styles = {
   root: {
@@ -16,7 +15,8 @@ const styles = {
   },
 
   grid: {
-    overflowY: 'auto'
+    overflowY: 'auto',
+    marginTop: 40
   }
 }
 
@@ -24,21 +24,20 @@ const Canines = ({ canines, onRemove, onActive, history, token }) => {
   let dogsList = !canines ? (
     <p>Loading...</p>
   ) : (
-    <div style={styles.root}>
-      <GridList style={styles.grid} cols={3}>
-        {canines.map((dog, i) => (
-          <GridTile
-            key={i}
-            title={dog.name}
-            onClick={e => {
-              e.preventDefault()
-              onActive(dog)
-              history.push('/view-canine')
-            }}
-          >
-            <img src={dog.image} alt={dog.name} />
+    <GridList style={styles.grid} cols={4}>
+      {canines.map((dog, i) => (
+        <GridTile
+          key={i}
+          title={dog.name}
+          onClick={e => {
+            e.preventDefault()
+            onActive(dog)
+            history.push('/view-canine')
+          }}
+        >
+          <img src={dog.image} alt={dog.name} />
 
-            {/* <button
+          {/* <button
           onClick={e => {
             e.preventDefault()
             onRemove(d._id)
@@ -46,12 +45,15 @@ const Canines = ({ canines, onRemove, onActive, history, token }) => {
         >
           X
         </button> */}
-          </GridTile>
-        ))}
-      </GridList>
+        </GridTile>
+      ))}
+    </GridList>
+  )
+  return (
+    <div style={styles.root}>
+      {sessionStorage.getItem('token') ? dogsList : <Login />}
     </div>
   )
-  return <div>{token ? dogsList : <Login />}</div>
 }
 
 // const setLoggedIn = token => {

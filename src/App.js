@@ -11,11 +11,13 @@ class App extends Component {
   }
   render() {
     return (
-      <Switch>
-        <Route exact path="/" render={props => <Dashboard {...props} />} />
-        <Route exact path="/view-canine" render={() => <CanineView />} />
-        <Route path="*" render={() => <Redirect to="/" />} />
-      </Switch>
+      <div>
+        <Switch>
+          <Route exact path="/" render={props => <Dashboard {...props} />} />
+          <Route exact path="/view-canine" render={() => <CanineView />} />
+          <Route path="*" render={() => <Redirect to="/" />} />
+        </Switch>
+      </div>
     )
   }
 }
