@@ -5,60 +5,40 @@ import { setActive } from '../actions/canines'
 import CanineForm from '../components/CanineForm'
 import Login from '../components/Login'
 
-import { Card } from 'reactstrap'
+import { GridList, GridTile } from 'material-ui/GridList'
+import { Paper } from 'material-ui/Paper'
 
-// const styleView = {
-//   display: 'flex',
-//   flexDirection: 'column',
-//   width: 750,
-//   margin: '0 auto'
-// }
-//
-// const styleList = {
-//   display: 'flex',
-//   flexFlow: 'row wrap',
-//   justifyContent: 'center'
-// }
-//
-// const styleDogs = {
-//   display: 'flex',
-//   flexDirection: 'column',
-//   alignItems: 'center',
-//   backgroundColor: 'lightgrey',
-//   borderRadius: 20,
-//   margin: 10
-// }
-//
-// const styleName = {
-//   padding: 5
-// }
-//
-// const styleImage = {
-//   width: 150,
-//   height: 150,
-//   borderTopLeftRadius: 20,
-//   borderTopRightRadius: 20
-// }
+const styles = {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around'
+  },
+
+  grid: {
+    overflowY: 'auto'
+  }
+}
 
 const Canines = ({ canines, onRemove, onActive, history, token }) => {
   let dogsList = !canines ? (
     <p>Loading...</p>
   ) : (
-    canines.map((dog, i) => (
-      <Card key={i}>
-        <img
-          className="img-responsive"
-          // style={styleImage}
-          src={dog.image}
-          alt={dog.name}
-          onClick={e => {
-            e.preventDefault()
-            onActive(dog)
-            history.push('/view-canine')
-          }}
-        />
-        <span>{dog.name}</span>
-        {/* <button
+    <div style={styles.root}>
+      <GridList style={styles.grid} cols={3}>
+        {canines.map((dog, i) => (
+          <GridTile
+            key={i}
+            title={dog.name}
+            onClick={e => {
+              e.preventDefault()
+              onActive(dog)
+              history.push('/view-canine')
+            }}
+          >
+            <img src={dog.image} alt={dog.name} />
+
+            {/* <button
           onClick={e => {
             e.preventDefault()
             onRemove(d._id)
@@ -66,15 +46,12 @@ const Canines = ({ canines, onRemove, onActive, history, token }) => {
         >
           X
         </button> */}
-      </Card>
-    ))
-  )
-  return (
-    <div className="dogs-list">
-      <div>{token ? dogsList : <Login />}</div>
-      {/* <CanineForm /> */}
+          </GridTile>
+        ))}
+      </GridList>
     </div>
   )
+  return <div>{token ? dogsList : <Login />}</div>
 }
 
 // const setLoggedIn = token => {

@@ -16,7 +16,7 @@ import { init as listen, emit } from './actions/websockets'
 
 import { setSession } from './actions/auths'
 
-import 'bootstrap/dist/css/bootstrap.css'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 const reducer = combineReducers({ auths, canines, forms })
 
@@ -38,10 +38,12 @@ function startup() {
 }
 
 ReactDOM.render(
-  <Provider store={startup()}>
-    <Router>
-      <App />
-    </Router>
-  </Provider>,
+  <MuiThemeProvider>
+    <Provider store={startup()}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root')
 )
