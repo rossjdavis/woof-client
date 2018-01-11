@@ -1,60 +1,63 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { removeCanine } from '../actions/canines'
 import { setActive } from '../actions/canines'
 import CanineForm from '../components/CanineForm'
+import Login from '../components/Login'
 
-const styleView = {
-  display: 'flex',
-  flexDirection: 'column',
-  width: 750,
-  margin: '0 auto'
-}
+import { Card } from 'reactstrap'
 
-const styleList = {
-  display: 'flex',
-  flexFlow: 'row wrap',
-  justifyContent: 'center'
-}
+// const styleView = {
+//   display: 'flex',
+//   flexDirection: 'column',
+//   width: 750,
+//   margin: '0 auto'
+// }
+//
+// const styleList = {
+//   display: 'flex',
+//   flexFlow: 'row wrap',
+//   justifyContent: 'center'
+// }
+//
+// const styleDogs = {
+//   display: 'flex',
+//   flexDirection: 'column',
+//   alignItems: 'center',
+//   backgroundColor: 'lightgrey',
+//   borderRadius: 20,
+//   margin: 10
+// }
+//
+// const styleName = {
+//   padding: 5
+// }
+//
+// const styleImage = {
+//   width: 150,
+//   height: 150,
+//   borderTopLeftRadius: 20,
+//   borderTopRightRadius: 20
+// }
 
-const styleDogs = {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  backgroundColor: 'lightgrey',
-  borderRadius: 20,
-  margin: 10
-}
-
-const styleName = {
-  padding: 5
-}
-
-const styleImage = {
-  width: 150,
-  height: 150,
-  borderTopLeftRadius: 20,
-  borderTopRightRadius: 20
-}
-
-const Canines = ({ canines, onRemove, onActive, history }) => {
-  let list = !canines ? (
+const Canines = ({ canines, onRemove, onActive, history, token }) => {
+  let dogsList = !canines ? (
     <p>Loading...</p>
   ) : (
-    canines.map((d, i) => (
-      <div key={i} style={styleDogs}>
+    canines.map((dog, i) => (
+      <Card key={i}>
         <img
           className="img-responsive"
-          style={styleImage}
-          src={d.image}
+          // style={styleImage}
+          src={dog.image}
+          alt={dog.name}
           onClick={e => {
             e.preventDefault()
-            onActive(d)
+            onActive(dog)
             history.push('/view-canine')
           }}
         />
-        <span style={styleName}>{d.name}</span>
+        <span>{dog.name}</span>
         {/* <button
           onClick={e => {
             e.preventDefault()
@@ -63,19 +66,28 @@ const Canines = ({ canines, onRemove, onActive, history }) => {
         >
           X
         </button> */}
-      </div>
+      </Card>
     ))
   )
   return (
-    <div className="dogs-list" style={styleView}>
-      <div style={styleList}>{list} </div>
+    <div className="dogs-list">
+      <div>{token ? dogsList : <Login />}</div>
       {/* <CanineForm /> */}
     </div>
   )
 }
 
+// const setLoggedIn = token => {
+//   console.log('set session')
+//   let session = JSON.parse(sessionStorage.getItem('token'))
+//   if (token && !session) {
+//     this.props.onSignIn(token)
+//   }
+// }
+
 const mapStateToProps = state => ({
-  canines: state.canines.index
+  canines: state.canines.index,
+  token: state.auths.token
 })
 
 const mapDispatchToProps = dispatch => ({

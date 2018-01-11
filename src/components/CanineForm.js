@@ -12,10 +12,10 @@ const Canine = ({ history, onCreate, date }) => {
         onCreate(e.target[0].value, born)
       }}
     >
-      <p>
+      <div>
         Name:
         <input type="text" name="name" />
-      </p>
+      </div>
       <div>
         Birthday:
         <DateDropdown />

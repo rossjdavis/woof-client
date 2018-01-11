@@ -8,12 +8,17 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 
+import { auths } from './reducers/auths'
 import { canines } from './reducers/canines'
 import { forms } from './reducers/forms'
 
 import { init as listen, emit } from './actions/websockets'
 
-const reducer = combineReducers({ canines, forms })
+import { setSession } from './actions/auths'
+
+import 'bootstrap/dist/css/bootstrap.css'
+
+const reducer = combineReducers({ auths, canines, forms })
 
 function startup() {
   const middleware = [thunk.withExtraArgument({ emit })]
@@ -23,6 +28,8 @@ function startup() {
 
   store.subscribe(() => {
     console.log(store.getState())
+    console.log('session ' + sessionStorage.getItem('token'))
+    setSession(store.getState().auths.token)
   })
 
   listen(store)

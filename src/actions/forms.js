@@ -1,9 +1,4 @@
-import {
-  SELECT_MONTH,
-  SELECT_DAY,
-  SELECT_YEAR,
-  ASSIGN_VALUES
-} from '../constants/forms'
+import { SELECT_MONTH, SELECT_DAY, SELECT_YEAR } from '../constants/forms'
 
 export const selectMonth = month => ({
   type: SELECT_MONTH,

@@ -1,58 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 import { getActive } from '../actions/canines'
 
-const styleView = {
-  display: 'flex',
-  flexDirection: 'column',
-  width: 750,
-  margin: '0 auto'
-}
-
-const styleHead = {
-  display: 'flex',
-  flexDirection: 'row'
-}
-
-const styleImage = {
-  width: 300,
-  height: 300,
-  borderRadius: 20,
-  marginRight: 20
-}
-
-const styleIntro = {
-  display: 'flex',
-  flexDirection: 'column'
-}
-
 class Canine extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentWillMount() {
-    this.props.onGetActive()
+    this.props.onRefresh()
   }
 
   render() {
     let { view } = this.props
-    return !view ? (
+    let canine = !view ? (
       <p>Loading...</p>
     ) : (
-      <div style={styleView}>
-        <div style={styleHead}>
-          <img style={styleImage} src={view.image} />
-          <div style={styleIntro}>
-            <h1>{view.name}</h1>
-            <p> {view.born}</p>
-            <p> {view.intro} </p>
-            {/* <button> Woof! </button> */}
-          </div>
-        </div>
+      <div>
+        <img src={view.image} alt={view.name} />
+        <h1>{view.name}</h1>
+        <p> {view.born}</p>
+        <p> {view.intro} </p>
       </div>
     )
+    return canine
   }
 }
 
@@ -61,7 +28,7 @@ const matchStateToProps = state => ({
 })
 
 const matchDispatchToProps = dispatch => ({
-  onGetActive: () => dispatch(getActive())
+  onRefresh: () => dispatch(getActive())
 })
 
 const CanineView = connect(matchStateToProps, matchDispatchToProps)(Canine)

@@ -1,21 +1,14 @@
 import React, { Component } from 'react'
 import { withRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as actions from './actions/canines'
+import { getDogs } from './actions/canines'
 import Dashboard from './containers/Dashboard'
 import CanineView from './components/CanineView'
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   componentWillMount() {
-    const { actions } = this.props
-    actions.getDogs()
+    // this.props.onRefresh()
   }
-
   render() {
     return (
       <Switch>
@@ -28,12 +21,12 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  canines: state.canines
+  canines: state.canines,
+  token: state.auths.token
 })
 
 const mapDispatchToProps = dispatch => ({
-  dispatch: dispatch,
-  actions: bindActionCreators(actions, dispatch)
+  onRefresh: () => dispatch(getDogs())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App))
