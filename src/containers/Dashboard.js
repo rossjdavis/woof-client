@@ -1,38 +1,36 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { removeCanine } from '../actions/canines'
-import { setActive } from '../actions/canines'
-import CanineForm from '../components/CanineForm'
-import Login from '../components/Login'
+import { showView } from '../actions/canines'
 
 import { GridList, GridTile } from 'material-ui/GridList'
+import IconButton from 'material-ui/IconButton'
+
+import StarBorder from 'material-ui/svg-icons/toggle/star-border'
 
 const styles = {
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around'
-  },
-
-  grid: {
-    overflowY: 'auto',
-    marginTop: 40
+    overflowY: 'auto'
   }
 }
 
-const Canines = ({ canines, onRemove, onActive, history, token }) => {
-  let dogsList = !canines ? (
+const Canines = ({ canines, onRemove, token, onShow }) => {
+  let dogs = !canines ? (
     <p>Loading...</p>
   ) : (
-    <GridList style={styles.grid} cols={4}>
+    <GridList style={styles.root} cols={4}>
       {canines.map((dog, i) => (
         <GridTile
           key={i}
           title={dog.name}
+          actionIcon={
+            <IconButton>
+              <StarBorder color="white" />
+            </IconButton>
+          }
           onClick={e => {
             e.preventDefault()
-            onActive(dog)
-            history.push('/view-canine')
+            onShow(dog)
           }}
         >
           <img src={dog.image} alt={dog.name} />
@@ -49,20 +47,8 @@ const Canines = ({ canines, onRemove, onActive, history, token }) => {
       ))}
     </GridList>
   )
-  return (
-    <div style={styles.root}>
-      {sessionStorage.getItem('token') ? dogsList : <Login />}
-    </div>
-  )
+  return dogs
 }
-
-// const setLoggedIn = token => {
-//   console.log('set session')
-//   let session = JSON.parse(sessionStorage.getItem('token'))
-//   if (token && !session) {
-//     this.props.onSignIn(token)
-//   }
-// }
 
 const mapStateToProps = state => ({
   canines: state.canines.index,
@@ -70,8 +56,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onRemove: id => dispatch(removeCanine(id)),
-  onActive: canine => dispatch(setActive(canine))
+  // onRemove: id => dispatch(removeCanine(id)),
+  onShow: canine => dispatch(showView(canine))
 })
 
 const Dashboard = connect(mapStateToProps, mapDispatchToProps)(Canines)

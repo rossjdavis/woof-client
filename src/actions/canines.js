@@ -2,8 +2,7 @@ import {
   REFRESH,
   CREATE_CANINE,
   REMOVE_CANINE,
-  SET_PROFILE_VIEW,
-  GET_PROFILE_VIEW
+  TOGGLE_PROFILE_VIEW
 } from '../constants/canines'
 
 export function getDogs(canines) {
@@ -26,22 +25,14 @@ export function removeCanine(id) {
   }
 }
 
-export function setActive(canine) {
+export function showView(canine) {
   return (dispatch, getState) => {
-    sessionStorage.setItem('view', JSON.stringify(canine))
-    dispatch({ type: SET_PROFILE_VIEW, payload: canine })
+    dispatch({ type: TOGGLE_PROFILE_VIEW, payload: canine })
   }
 }
 
-export function getActive() {
+export function exitView() {
   return (dispatch, getState) => {
-    let canine = JSON.parse(sessionStorage.getItem('view'))
-    dispatch({ type: GET_PROFILE_VIEW, payload: canine })
+    dispatch({ type: TOGGLE_PROFILE_VIEW, payload: null })
   }
 }
-//
-// export function getAge(canine) {
-//   return (dispatch, getState) => {
-//     let age =
-//   }
-// }

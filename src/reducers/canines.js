@@ -2,8 +2,7 @@ import {
   REFRESH,
   CREATE_CANINE,
   REMOVE_CANINE,
-  SET_PROFILE_VIEW,
-  GET_PROFILE_VIEW
+  TOGGLE_PROFILE_VIEW
 } from '../constants/canines'
 
 const DEFAULT_STATE = {
@@ -29,12 +28,7 @@ export const canines = (state = DEFAULT_STATE, action) => {
           return canine._id !== action.payload
         })
       }
-    case SET_PROFILE_VIEW:
-      return {
-        ...state,
-        view: action.payload
-      }
-    case GET_PROFILE_VIEW:
+    case TOGGLE_PROFILE_VIEW:
       return {
         ...state,
         view: action.payload

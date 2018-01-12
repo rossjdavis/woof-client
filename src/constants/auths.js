@@ -1,3 +1,5 @@
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
+// export const FORM_EMAIL = 'FORM_EMAIL'
+// export const FORM_PWORD = 'FORM_PWORD'

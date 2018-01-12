@@ -1,24 +1,66 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { reqLogin } from '../actions/auths'
+import { Tabs, Tab } from 'material-ui/Tabs'
+import TextField from 'material-ui/TextField'
+import FlatButton from 'material-ui/FlatButton'
+import Dialog from 'material-ui/Dialog'
 
-const Login = ({ onLogin }) => {
-  return (
-    <form
-      onSubmit={e => {
+const Login = ({ onLogin, token }) => {
+  let styles = {
+    root: {
+      width: '30%'
+    }
+  }
+
+  let login = (
+    <Dialog
+      open={true}
+      contentStyle={styles.root}
+      onClick={e => {
         e.preventDefault()
-        onLogin(e.target[0].value)
+        console.log(e.target)
       }}
     >
-      <div>
-        <input type="text" name="name" placeholder="Your Name" />
-        <input type="submit" value="Login" />
-      </div>
-    </form>
+      <Tabs>
+        <Tab label="Login">
+          <TextField id="email" type="email" floatingLabelText="e-mail" />
+          <br />
+          <TextField id="pword" type="password" floatingLabelText="password" />
+          <br />
+          <FlatButton
+            label="Submit"
+            onClick={e => {
+              e.preventDefault()
+              onLogin(getValues())
+            }}
+          />
+        </Tab>
+        <Tab label="Signup">
+          <TextField floatingLabelText="e-mail" />
+          <br />
+          <TextField floatingLabelText="password" />
+          <br />
+          <TextField floatingLabelText="password confirm" />
+          <br />
+          <FlatButton label="Submit" />
+        </Tab>
+      </Tabs>
+    </Dialog>
   )
+  return token ? <div /> : <div style={styles.root}>{login}</div>
 }
 
-const mapStateToProps = state => ({})
+const getValues = () => {
+  let email = document.getElementById('email').value
+  let pword = document.getElementById('pword').value
+
+  return { email, pword }
+}
+
+const mapStateToProps = state => ({
+  token: state.auths.token
+})
 
 const mapDispatchToProps = dispatch => ({
   onLogin: name => dispatch(reqLogin(name))
