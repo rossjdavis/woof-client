@@ -15,19 +15,13 @@ import FlatButton from 'material-ui/FlatButton'
 import { Tab, Tabs } from 'material-ui/Tabs'
 
 const Canine = ({ view, onExit }) => {
-  let styles = {
-    root: {
-      width: '30%'
-    }
-  }
-
   let dog = !view ? (
     <div />
   ) : (
     <Dialog
       open={true}
       onRequestClose={onExit}
-      contentStyle={styles.root}
+      contentStyle={{ width: '30%' }}
       autoDetectWindowHeight={true}
     >
       <Card>

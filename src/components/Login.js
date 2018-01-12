@@ -7,16 +7,10 @@ import FlatButton from 'material-ui/FlatButton'
 import Dialog from 'material-ui/Dialog'
 
 const Login = ({ onLogin, token }) => {
-  let styles = {
-    root: {
-      width: '30%'
-    }
-  }
-
   let login = (
     <Dialog
       open={true}
-      contentStyle={styles.root}
+      contentStyle={{ width: '30%' }}
       onClick={e => {
         e.preventDefault()
         console.log(e.target)
@@ -27,14 +21,6 @@ const Login = ({ onLogin, token }) => {
           <TextField id="email" type="email" floatingLabelText="e-mail" />
           <br />
           <TextField id="pword" type="password" floatingLabelText="password" />
-          <br />
-          <FlatButton
-            label="Submit"
-            onClick={e => {
-              e.preventDefault()
-              onLogin(getValues())
-            }}
-          />
         </Tab>
         <Tab label="Signup">
           <TextField floatingLabelText="e-mail" />
@@ -42,13 +28,19 @@ const Login = ({ onLogin, token }) => {
           <TextField floatingLabelText="password" />
           <br />
           <TextField floatingLabelText="password confirm" />
-          <br />
-          <FlatButton label="Submit" />
         </Tab>
       </Tabs>
+      <FlatButton
+        label="Submit"
+        fullWidth={true}
+        onClick={e => {
+          e.preventDefault()
+          onLogin(getValues())
+        }}
+      />
     </Dialog>
   )
-  return token ? <div /> : <div style={styles.root}>{login}</div>
+  return token ? <div /> : <div>{login}</div>
 }
 
 const getValues = () => {

@@ -14,7 +14,7 @@ const styles = {
   }
 }
 
-const Canines = ({ canines, onRemove, token, onShow }) => {
+const Canines = ({ canines, onRemove, onShow }) => {
   let dogs = !canines ? (
     <p>Loading...</p>
   ) : (
@@ -23,11 +23,11 @@ const Canines = ({ canines, onRemove, token, onShow }) => {
         <GridTile
           key={i}
           title={dog.name}
-          actionIcon={
-            <IconButton>
-              <StarBorder color="white" />
-            </IconButton>
-          }
+          // actionIcon={
+          //   <IconButton>
+          //     <StarBorder color="white" />
+          //   </IconButton>
+          // }
           onClick={e => {
             e.preventDefault()
             onShow(dog)
@@ -51,8 +51,7 @@ const Canines = ({ canines, onRemove, token, onShow }) => {
 }
 
 const mapStateToProps = state => ({
-  canines: state.canines.index,
-  token: state.auths.token
+  canines: state.canines.index
 })
 
 const mapDispatchToProps = dispatch => ({

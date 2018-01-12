@@ -10,7 +10,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <AppBar style={{ marginBottom: 5 }} />
+        <AppBar style={{ marginBottom: 5 }} showMenuIconButton={false} />
         <Login />
         <Canine />
         <Dashboard />
